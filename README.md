@@ -2,12 +2,12 @@
 
 Follow the instructions in this section to run the app locally.
 
-### 1. setup backend `.env`
+### 1. setup api `.env`
 
 Start by copying the `.env.example` file to `.env`.
 
 ```bash
-cd backend
+cd api
 cp .env.example .env
 ```
 
@@ -17,12 +17,12 @@ Then, fill in the `MONGO_URL` field in `.env` with your MongoDB connection strin
 MONGO_URL="mongodb+srv://<username>:<password>@<cluster>.example.mongodb.net/?retryWrites=true&w=majority"
 ```
 
-### 2. setup frontend `.env`
+### 2. setup client `.env`
 
 Start by copying the `.env.example` file to `.env`.
 
 ```bash
-cd frontend
+cd client
 cp .env.example .env
 ```
 
@@ -35,12 +35,12 @@ VITE_API_URL="http://localhost:4000/api"
 ### 3. Install dependencies
 
 ```bash
-cd backend
+cd api
 yarn 
 ```
 
 ```bash
-cd frontend
+cd client
 yarn 
 yarn add react-router-dom
 ```
@@ -48,14 +48,14 @@ yarn add react-router-dom
 ### 4. start the backend server
 
 ```bash
-cd backend
+cd api
 yarn dev
 ```
 
 ### 5. start the frontend server
 
 ```bash
-cd frontend
+cd client
 yarn dev
 ```
 
