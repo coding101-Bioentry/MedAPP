@@ -26,8 +26,10 @@ export default function LoginPage() {
   }
 
   if (redirect) {
-    return <Navigate to={'/'} />
+    // 当redirectToHome为true时，重定向到HomePage
+    return <Navigate to="/" replace />;
   }
+
 
   return (
       <Card className="min-w-[300px]">

@@ -6,8 +6,9 @@ import LoginPage from "./pages/LoginPage";
 import Layout from "./Layout";
 import RegisterPage from "./pages/RegisterPage";
 import LogOutPage from "./pages/LogOutPage";
+import HomePage from "./pages/HomePage";
 import axios from "axios";
-
+import Clock from "./Clock";
 
 axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true;
@@ -20,9 +21,12 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/logout" element={<LogOutPage />} />
+          <Route path="/homepage" element={<HomePage />} />
+          <Route path="/clock" element={<Clock />} />
         </Route>
       </Routes>
     </UserContextProvider>
+    
   )
 }
 
