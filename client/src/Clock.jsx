@@ -1,31 +1,32 @@
 import React, { useState, useEffect } from 'react';
+import sunImage from "./components/ui/sun.png"; // 引入太阳图片
+import moonImage from "./components/ui/moon.png"; // 引入月亮图片
 
 function Clock() {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
-    const timerID = setInterval(
-      () => setCurrentTime(new Date()),
-      1000 // 每秒更新时间
-    );
-
-    return () => {
-      clearInterval(timerID); // 清除定时器，避免内存泄漏
-    };
+    const timerID = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timerID);
   }, []);
 
-  //時間格式為「時：分 AM/PM」
+  const isAm = currentTime.getHours() < 12;
+
+  const imageSrc = isAm ? sunImage : moonImage;
+  
   const timeString = currentTime.toLocaleTimeString('en-US', {
     hour: 'numeric',
     minute: '2-digit',
-    hour12: true // 使用12小时制，显示AM/PM
+    hour12: true,
   });
-
   return (
     <div>
-      {timeString}
+      <img src={imageSrc} alt={isAm ? "sun" : "moon"} style={{ width: 50, height: 50 }} />
+      <div>{timeString}</div>
     </div>
   );
+
+    
 }
 
 export default Clock;

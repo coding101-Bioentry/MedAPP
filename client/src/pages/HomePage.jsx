@@ -3,10 +3,7 @@ import React from "react";
 //import { Button } from "../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import Clock from "../clock"; // Adjust the file path and casing accordingly
-
-// 假設你已經導入了圖標組件，或者你可以使用SVG/圖片
-//import { MenuIcon, SunIcon } from "../components/icons";
-
+// 正确的导入方式
 function Home() {
   return (
     <Card className="Home">
@@ -17,13 +14,12 @@ function Home() {
       <div className="Clock">
         <p><b>現在時間</b></p>
         <br/>
-        <div style={{ fontSize: '150px' }}>
+        <div style={{ fontSize: '100px' }}>
           <Clock />
         </div>
       </div>
       <div className="medication-section">
-        <p><b>用藥提醒</b></p>
-        <br />
+        <p><b>【心臟病處方】用藥提醒</b></p>
         <div className="medication-list">
         </div>
       </div>
