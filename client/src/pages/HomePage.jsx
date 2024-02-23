@@ -1,29 +1,27 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-import React from "react";
-//import { Button } from "../components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
-import Clock from "../clock"; // Adjust the file path and casing accordingly
-// 正确的导入方式
+import Clock from "../components/Clock";
+import PrescriptionCard from "../components/PrescriptionCard";
+
 function Home() {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    axios.get('/record').then(response => {
+      setData(response.data);
+    });
+  }, []);
+
+
   return (
-    <Card className="Home">
-      <CardHeader>
-        <CardTitle>即時用藥管理</CardTitle>
-      </CardHeader>
-      <br />
-      <div className="Clock">
-        <p><b>現在時間</b></p>
-        <br/>
-        <div style={{ fontSize: '100px' }}>
-          <Clock />
-        </div>
-      </div>
-      <div className="medication-section">
-        <p><b>【心臟病處方】用藥提醒</b></p>
-        <div className="medication-list">
-        </div>
-      </div>
-    </Card>
+    <div className="flex flex-col items-center gap-y-8">
+      <p className="font-bold sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl 2xl:text-4xl">即時用藥管理</p>
+      <Clock />
+      <p className="sm:text-lg md:text-xl lg:text-xl xl:text-2xl 2xl:text-2xl border rounded-full p-2 pr-24 pl-24">心臟病處方</p>
+      {data && data.map((time) => (
+        <PrescriptionCard key={time._id} time={time.time} origin_time={time.origin_time} medication_info={time.medication_info} />
+      ))}
+    </div>
   );
 }
 export default Home;

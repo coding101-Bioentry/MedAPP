@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('./models/User.js');
+const Time = require('./models/Time.js');
 const cookieParser = require('cookie-parser');
 
 
@@ -42,7 +43,11 @@ app.get('/test', (req, res) => {
 app.post('/register', async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   const { name, email, password } = req.body;
-
+  const userDoc = await User.findOne({ email });
+  if (userDoc) {
+    res.status(422).json('User already exists.');
+    return;
+  }
   try {
     const userDoc = await User.create({
       name,
@@ -54,7 +59,6 @@ app.post('/register', async (req, res) => {
   } catch (e) {
     res.status(422).json(e);
   }
-
 });
 
 app.post('/login', async (req, res) => {
@@ -72,10 +76,10 @@ app.post('/login', async (req, res) => {
         res.cookie('token', token).json(userDoc);
       });
     } else {
-      res.status(422).json('pass not ok');
+      res.status(422).json('Password not match.');
     }
   } else {
-    res.json('not found');
+    res.status(422).json('User not found.');
   }
 });
 
@@ -93,9 +97,39 @@ app.get('/profile', (req, res) => {
   }
 });
 
-
 app.post('/logout', (req, res) => {
   res.cookie('token', '').json(true);
+});
+
+app.post('/medtime', async (req, res) => {
+  mongoose.connect(process.env.MONGO_URL);
+  const { origin_time, time, medication_info } = req.body;
+  try {
+    const medication_time = await Time.create({
+      origin_time,
+      time,
+      medication_info,
+    });
+    console.log(medication_time);
+    res.json(medication_time);
+  } catch (e) {
+    res.status(422).json(e);
+  }
+});
+
+app.get('/record', (req, res) => {
+  mongoose.connect(process.env.MONGO_URL);
+  const { token } = req.cookies;
+  if (token) {
+    jwt.verify(token, jwtSecret, {}, async (err) => {
+      if (err) throw err;
+      const allTimeData = await Time.find();
+      res.json(allTimeData);
+      console.log(allTimeData);
+    });
+  } else {
+    res.json(null);
+  }
 });
 
 

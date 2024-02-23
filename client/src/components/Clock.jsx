@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import sunImage from "./components/ui/sun.png"; // 引入太阳图片
-import moonImage from "./components/ui/moon.png"; // 引入月亮图片
+import sunImage from "../../public/sun.png"; // 引入太阳图片
+import moonImage from "../../public/moon.png"; // 引入月亮图片
 
 function Clock() {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -20,9 +20,9 @@ function Clock() {
     hour12: true,
   });
   return (
-    <div>
+    <div className='flex flex-row gap-x-4'>
       <img src={imageSrc} alt={isAm ? "sun" : "moon"} style={{ width: 50, height: 50 }} />
-      <div>{timeString}</div>
+      <p className='text-6xl'>{timeString}</p>
     </div>
   );
 
