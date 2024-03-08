@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
 const TimeSchema = new Schema({
-    origin_time: Date,
-    time: Date,
+    origin_time: String,
+    time: String,
     medication_info: Boolean,
 });
 

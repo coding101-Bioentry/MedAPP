@@ -4,7 +4,7 @@ from datetime import datetime
 
 def send_info_to_web():
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    expected_time = "2021-06-01 18:00:00"
+    expected_time = "2024-03-08 18:00:00"
     medication_info = False
     data = {
         "origin_time" : expected_time,
